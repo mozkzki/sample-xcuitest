@@ -1,5 +1,7 @@
 # sample-xcuitest
 
+[![CI](https://github.com/mozkzki/sample-xcuitest/actions/workflows/main.yml/badge.svg)](https://github.com/mozkzki/sample-xcuitest/actions/workflows/main.yml)
+
 swiftでのUI自動テスト(XCUITest)のサンプルです。
 
 - 下記を参考にしました
