@@ -37,9 +37,8 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
     - name: TestWithFastlane
-      run:
-        command: bundle exec fastlane test
-        no_output_timeout: 30m
+      run: bundle exec fastlane test
+      no_output_timeout: 30m
     # - store_artifacts:
     #   path: ./fastlane/uitest_output
     #   when: always
