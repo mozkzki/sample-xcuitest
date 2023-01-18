@@ -25,6 +25,8 @@ jobs:
   #   - uses: actions/checkout@v3
   #   - name: Show Xcode version
   #     run: xcodebuild -version
+  #   - name: Install xctesthtmlreport
+  #     run: brew install xctesthtmlreport
   #   - name: Test
   #     run: xcodebuild -sdk iphonesimulator -scheme UITestSample -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
   #   - name: Make Report
@@ -43,6 +45,8 @@ jobs:
         ruby-version: 2.7
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
+    - name: Install xctesthtmlreport
+      run: brew install xctesthtmlreport
     - name: TestWithFastlane
       run: bundle exec fastlane test
       timeout-minutes: 30
