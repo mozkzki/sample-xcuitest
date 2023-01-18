@@ -19,11 +19,27 @@ jobs:
     - name: Build
       run: xcodebuild -sdk iphonesimulator -configuration Debug build
 
-  test:
+  # test:
+  #   runs-on: macOS-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Show Xcode version
+  #     run: xcodebuild -version
+  #   - name: Test
+  #     run: xcodebuild -sdk iphonesimulator -scheme UITestSample -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+  #   - name: Make Report
+  #     run: xchtmlreport -r uitest_output/UITestSample.xcresult
+
+  test-with-fastlane:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v3
     - name: Show Xcode version
       run: xcodebuild -version
-    - name: Test
-      run: xcodebuild -sdk iphonesimulator -scheme UITestSample -destination OS=16.2,name="iPhone 14" -configuration Debug test
+    - name: TestWithFastlane
+      run:
+        command: bundle exec fastlane test
+        no_output_timeout: 30m
+    - store_artifacts:
+      path: ./fastlane/uitest_output
+      when: always
