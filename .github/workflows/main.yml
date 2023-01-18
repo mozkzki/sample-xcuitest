@@ -40,6 +40,12 @@ jobs:
       run:
         command: bundle exec fastlane test
         no_output_timeout: 30m
-    - store_artifacts:
-      path: ./fastlane/uitest_output
-      when: always
+    # - store_artifacts:
+    #   path: ./fastlane/uitest_output
+    #   when: always
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: uitest-report
+        path: fastlane/uitest_output
+        when: always
