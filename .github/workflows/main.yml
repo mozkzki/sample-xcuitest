@@ -48,7 +48,7 @@ jobs:
     - name: Install xctesthtmlreport
       run: brew install xctesthtmlreport
     - name: TestWithFastlane
-      run: bundle exec fastlane test
+      run: bundle exec fastlane ui_test
       timeout-minutes: 30
     # - store_artifacts:
     #   path: ./fastlane/uitest_output
