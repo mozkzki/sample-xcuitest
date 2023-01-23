@@ -16,6 +16,7 @@
 		EC8515D92970FD2B00D0BF5C /* SubPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515D82970FD2B00D0BF5C /* SubPage.swift */; };
 		EC8515DB2970FD9C00D0BF5C /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515DA2970FD9C00D0BF5C /* MainPage.swift */; };
 		EC8515DE2971125900D0BF5C /* PageObjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515DD2971125900D0BF5C /* PageObjectable.swift */; };
+		EC8515E22979141100D0BF5C /* SampleUITestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E12979141100D0BF5C /* SampleUITestBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		EC8515D82970FD2B00D0BF5C /* SubPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubPage.swift; sourceTree = "<group>"; };
 		EC8515DA2970FD9C00D0BF5C /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		EC8515DD2971125900D0BF5C /* PageObjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageObjectable.swift; sourceTree = "<group>"; };
+		EC8515E12979141100D0BF5C /* SampleUITestBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUITestBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				EC8515D72970FD0F00D0BF5C /* PageObject */,
 				311D905021C4BD590049F4F9 /* SampleUITests.swift */,
+				EC8515E12979141100D0BF5C /* SampleUITestBase.swift */,
 				311D905221C4BD590049F4F9 /* Info.plist */,
 			);
 			path = UITestSampleUITests;
@@ -233,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC8515E22979141100D0BF5C /* SampleUITestBase.swift in Sources */,
 				311D905121C4BD590049F4F9 /* SampleUITests.swift in Sources */,
 				EC8515D92970FD2B00D0BF5C /* SubPage.swift in Sources */,
 				EC8515DB2970FD9C00D0BF5C /* MainPage.swift in Sources */,
@@ -424,16 +428,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T97E8ZWW3A;
+				DEVELOPMENT_TEAM = PJ5ND3X9W4;
 				INFOPLIST_FILE = UITestSampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.ysome1971.UITestSampleUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.mozkzki.UITestSampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = UITestSample;
@@ -444,16 +450,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T97E8ZWW3A;
+				DEVELOPMENT_TEAM = PJ5ND3X9W4;
 				INFOPLIST_FILE = UITestSampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.ysome1971.UITestSampleUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.mozkzki.UITestSampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = UITestSample;

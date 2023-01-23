@@ -27,20 +27,57 @@ platform :ios do
   end
 
   desc "UIテスト"
-  lane :test do |options|
+  lane :ui_test do |options|
     result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
     scan(
       project: "UITestSample.xcodeproj",
       scheme: "UITestSample",
-      destination: "platform=iOS Simulator,OS=16.2,name=iPhone 14",
+      devices: ["iPhone 14"],
+    #   devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"],
+    #   destination: "platform=iOS Simulator,OS=16.2,name=iPhone 14",
       configuration: "Debug",
       result_bundle: result_bundle_path,
       output_directory: result_bundle_path,
       skip_slack: true,
       include_simulator_logs: false,
-      clean: true
+      clean: true,
+      parallel_testing: true,
+      concurrent_workers: 4,
+      max_concurrent_simulators: 4,
+      disable_concurrent_testing: false,
+    #   force_quit_simulator: true,
+    #   reset_simulator: true,
+    #   prelaunch_simulator: true
     )
     sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
+  end
+
+  desc "UIテスト用のビルド"
+  lane :build_for_ui_test do
+    run_tests(
+      scheme: "UITestSample",
+      devices: ["iPhone 14"],
+      configuration: "Debug",
+      derived_data_path: "build-fastlane",
+      build_for_testing: true,
+      clean: true,
+    )
+  end
+
+  desc "UIテスト(テストクラス指定, 分散実行用)"
+  lane :ui_test_without_building do |options|
+    run_tests(
+      scheme: "UITestSample",
+      devices: ["iPhone 14"],
+      only_testing: options[:tests],
+      derived_data_path: "build-fastlane",
+      test_without_building: true,
+
+      parallel_testing: true,
+      concurrent_workers: 4,
+      max_concurrent_simulators: 4,
+      disable_concurrent_testing: false,
+    )
   end
 
   before_all do |lane|

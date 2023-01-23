@@ -31,13 +31,29 @@ Description of what the lane does
 
 
 
-### ios test
+### ios ui_test
 
 ```sh
-[bundle exec] fastlane ios test
+[bundle exec] fastlane ios ui_test
 ```
 
 UIテスト
+
+### ios build_for_ui_test
+
+```sh
+[bundle exec] fastlane ios build_for_ui_test
+```
+
+UIテスト用のビルド
+
+### ios ui_test_without_building
+
+```sh
+[bundle exec] fastlane ios ui_test_without_building
+```
+
+UIテスト(テストクラス指定, 分散実行用)
 
 ----
 

@@ -18,7 +18,101 @@ swiftでのUI自動テスト(XCUITest)のサンプルです。
 bundle install --path=.bundle
 bundle exec fastlane
 # or
-bundle exec fastlane test
+bundle exec fastlane ui_test
+```
+
+## 並列実行
+
+- 参考
+  - [Parallel testing: get feedback earlier, release faster | by Paweł Zemsta | AzimoLabs | Medium](https://medium.com/azimolabs/parallel-testing-get-feedback-earlier-release-faster-b66d4dd08930)
+- シミュレーター(mac,local,`xcodebuild`)での並列実行を試した
+  - `build-for-testing`と`test-without-building`で分けるのがお作法っぽい
+  - 上記サイトの通り、テスト実施クラスを小分けにする必要がある
+
+  ```swift
+  class AzimoUITestsLogin : XCTestCase {
+    func test_login() {code}
+  }
+  class AzimoUITestsCreateRecipient : XCTestCase {
+    func test_createRecipient()
+  }
+  class AzimoUITestsCreateTransfer : XCTestCase {
+    func test_createTransfer() {code}
+  }
+  ```
+
+  - XcodeのGUIはOK，コマンドライン(`xcodebuild`)はNG
+    - XcodeのGUIから実行
+      - シミュレーターが複数立ち上がり、各OS上でテストが並列実行される
+    - `xcodebuild`
+      - シミュレーターは徐々に指定数立ち上がる
+      - が、テストが並列実行されない（1シミュレータのみで動作）
+      - 下記と同じ状況？
+        - [xcode - xcodebuild build-for-testing not evenly distributing tests across multiple ios simulators - Stack Overflow](https://stackoverflow.com/questions/72989993/xcodebuild-build-for-testing-not-evenly-distributing-tests-across-multiple-ios-s)
+      - 試したコマンドは下記
+        - `-sdk iphonesimulator`を忘れるとtestで失敗する
+        - buildが初回こけたので`-allowProvisioningUpdates`をつけて1度だけ実行した
+
+      ```bash
+      # build
+      xcodebuild clean build-for-testing \
+        -project UITestSample.xcodeproj \
+        -scheme UITestSample \
+        -sdk iphonesimulator \
+        -derivedDataPath ./build
+
+      # ui test
+      xcodebuild test-without-building \
+        -destination 'OS=16.2,name=iPhone 14' \
+        -parallel-testing-enabled YES \
+        -parallel-testing-worker-count 4 \
+        -maximum-concurrent-test-simulator-destinations 4 \
+        -maximum-parallel-testing-workers 4 \
+        -xctestrun ./build/Build/Products/UITestSample_iphonesimulator16.2-arm64-x86_64.xctestrun
+      ```
+
+    - Xcodeの最新だと`xctestrun`ではなく`xctestproducts`を指定してテスト出来る
+      - 最新(Xcode14.2)でも`xctestrun`で動きはする
+      - `xctestproducts`で動かしても並列実行されない
+      - 参考
+        - [Xcode13.3のTesting周りについてまとめてみた｜tarappo｜note](https://note.com/tarappo/n/na3c50cbc2fab)
+
+### fastlaneでの並列実行
+
+```bash
+bandle exec fastlane ui_test
+```
+
+- そもそもの動作
+  - シミュレーターを起動しているとGUIで動きが見れる(並列の場合、勝手にcloneが立ち上がる)
+  - シミュレーターが1台も起動していない(アプリのプロセスが無い)と、裏で動く
+
+- 並列動作
+  - `devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"]`のように複数機種を指定
+    - →想定通り各シミュレーターで並列に動く(テストは1〜4までシリアルに)
+  - `devices: ["iPhone 14"]`のように1機種を指定
+    - →テスト1〜4が分散される動きにはならない
+      - シミュレーターが4台起動するが動作しているのは1台でシリアルにテスト実行される
+      - 実行時間的に見て、裏で動く場合(シミュレータ起動無し)もシリアル動作と思われる
+      - 事前に機種を合わせたシミュレータを起動させておいても別のが立ち上がって↑と同じ動作になる（シリアル）
+
+- `run_tests`(`scan`)のパラメータ詳細等は下記公式ページ参照
+  - [run_tests - fastlane docs](https://docs.fastlane.tools/actions/run_tests/)
+  - [scan - fastlane docs](http://docs.fastlane.tools/actions/scan/#scan)
+
+- まとめ
+  - テストの分散実行は出来てない
+  - `xcodebuild`と同じ状況（根本はXcode側の動作か）
+
+## 部分実行
+
+`-only-testing:`を使う。`.swift`と拡張子まで指定すると動かなかった。
+
+```bash
+xcodebuild test-without-building \
+    -scheme UITestSample \
+    -destination 'OS=16.2,name=iPhone 14' \
+    -only-testing:UITestSampleUITests/SampleUITests/testメインページのテスト
 ```
 
 ## 参考
