@@ -1,0 +1,30 @@
+name: Build-And-Test-By-Xcodebuild
+
+on:
+  workflow_dispatch:
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: Build
+      run: xcodebuild -sdk iphonesimulator -configuration Debug build
+
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: Install xctesthtmlreport
+      run: brew install xctesthtmlreport
+    - name: Test
+      run: xcodebuild -sdk iphonesimulator -scheme UITestSample -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+    - name: Make Report
+      run: xchtmlreport -r uitest_output/UITestSample.xcresult

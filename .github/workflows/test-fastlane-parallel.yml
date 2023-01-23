@@ -1,0 +1,36 @@
+name: Parallel-Test-By-Fastlane
+
+on:
+  workflow_dispatch:
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+
+jobs:
+  test-with-fastlane:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        # Not needed with a .ruby-version file
+        ruby-version: 2.7
+        # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
+    - name: Install xctesthtmlreport
+      run: brew install xctesthtmlreport
+    - name: TestWithFastlane
+      run: bundle exec fastlane ui_test
+      timeout-minutes: 30
+    # - store_artifacts:
+    #   path: ./fastlane/uitest_output
+    #   when: always
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: uitest-report
+        path: fastlane/uitest_output
+        when: always
