@@ -75,6 +75,8 @@ platform :ios do
       derived_data_path: "build-fastlane",
       test_without_building: true,
 
+      force_quit_simulator: true,
+
       # 上位で分散させるので、Fastlaneの並列は無効化
     #   parallel_testing: true,
     #   concurrent_workers: 4,
