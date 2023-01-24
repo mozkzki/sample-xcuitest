@@ -39,16 +39,15 @@ platform :ios do
       result_bundle: true,
     #   result_bundle: result_bundle_path,
     #   output_directory: result_bundle_path,
+
+    #   parallel_testing: true,
+    #   concurrent_workers: 4,
+    #   max_concurrent_simulators: 4,
+    #   disable_concurrent_testing: false,
+
+      force_quit_simulator: true,
       skip_slack: true,
       include_simulator_logs: false,
-    #   clean: true,
-      parallel_testing: true,
-      concurrent_workers: 4,
-      max_concurrent_simulators: 4,
-      disable_concurrent_testing: false,
-    #   force_quit_simulator: true,
-    #   reset_simulator: true,
-    #   prelaunch_simulator: true
     )
     xchtmlreport
     # sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
