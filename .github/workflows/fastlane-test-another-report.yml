@@ -1,4 +1,4 @@
-name: Fastlane-Test
+name: Fastlane-Test-Another-Report
 
 on:
   workflow_dispatch:
