@@ -45,9 +45,9 @@ platform :ios do
     #   max_concurrent_simulators: 4,
     #   disable_concurrent_testing: false,
 
-      force_quit_simulator: true,
-      skip_slack: true,
-      include_simulator_logs: false,
+    #   force_quit_simulator: true,
+    #   skip_slack: true,
+    #   include_simulator_logs: false,
     )
     xchtmlreport
     # sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
