@@ -49,6 +49,11 @@ platform :ios do
     #   skip_slack: true,
     #   include_simulator_logs: false,
     )
+  end
+
+  desc "UIテストのレポート生成"
+  lane :make_report do |options|
+    result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
     sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
   end
 
