@@ -1,4 +1,4 @@
-name: Test-By-Fastlane
+name: Fastlane-Test
 
 on:
   workflow_dispatch:

@@ -1,0 +1,35 @@
+name: Xcodebuild-Test-2
+
+# on:
+#   workflow_dispatch:
+on:
+  push:
+    branches: [ main ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: Install xctesthtmlreport
+      run: brew install xctesthtmlreport
+    - name: Test
+      run: xcodebuild -sdk iphonesimulator -scheme UITestSample -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+    # https://blog.kishikawakatsumi.com/entry/2021/11/18/121326
+    - uses: kishikawakatsumi/xcresulttool@v1
+      with:
+        path: uitest_output/UITestSample.xcresult
+      if: success() || failure()
+    - name: Make Report
+      run: xchtmlreport -r uitest_output/UITestSample.xcresult
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: uitest-report
+        path: uitest_output
+        when: always
