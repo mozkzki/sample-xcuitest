@@ -28,7 +28,7 @@ platform :ios do
 
   desc "UIテスト"
   lane :ui_test do |options|
-    result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
+    # result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
     scan(
       project: "UITestSample.xcodeproj",
       scheme: "UITestSample",
@@ -36,11 +36,12 @@ platform :ios do
     #   devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"],
     #   destination: "platform=iOS Simulator,OS=16.2,name=iPhone 14",
       configuration: "Debug",
-      result_bundle: result_bundle_path,
-      output_directory: result_bundle_path,
+      result_bundle: true,
+    #   result_bundle: result_bundle_path,
+    #   output_directory: result_bundle_path,
       skip_slack: true,
       include_simulator_logs: false,
-      clean: true,
+    #   clean: true,
       parallel_testing: true,
       concurrent_workers: 4,
       max_concurrent_simulators: 4,
@@ -49,7 +50,8 @@ platform :ios do
     #   reset_simulator: true,
     #   prelaunch_simulator: true
     )
-    sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
+    xchtmlreport
+    # sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
   end
 
   desc "UIテスト用のビルド"
