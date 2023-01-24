@@ -56,11 +56,12 @@ platform :ios do
   lane :build_for_ui_test do
     run_tests(
       scheme: "UITestSample",
-      devices: ["iPhone 14"],
+    #   devices: ["iPhone 14"],
+      destination: "platform=iOS Simulator,OS=16.2,name=iPhone 14",
       configuration: "Debug",
       derived_data_path: "build-fastlane",
       build_for_testing: true,
-      clean: true,
+    #   clean: true,
     )
   end
 
@@ -68,16 +69,17 @@ platform :ios do
   lane :ui_test_without_building do |options|
     run_tests(
       scheme: "UITestSample",
-      devices: ["iPhone 14"],
+    #   devices: ["iPhone 14"],
+      destination: "platform=iOS Simulator,OS=16.2,name=iPhone 14",
       only_testing: options[:tests],
       derived_data_path: "build-fastlane",
       test_without_building: true,
 
       # 上位で分散させるので、Fastlaneの並列は無効化
-      parallel_testing: false,
-      concurrent_workers: 1,
-      max_concurrent_simulators: 1,
-      disable_concurrent_testing: true,
+    #   parallel_testing: true,
+    #   concurrent_workers: 4,
+    #   max_concurrent_simulators: 4,
+    #   disable_concurrent_testing: false,
     )
   end
 

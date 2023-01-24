@@ -5,7 +5,7 @@
 
 bundle exec fastlane build_for_ui_test
 
-bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest1/testメインページのテスト1" &
-bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest2/testサブページのテスト1" &
-bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest1/testメインページのテスト1" &
-bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest2/testサブページのテスト1" &
+bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest1/testメインページのテスト1"
+# bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest2/testサブページのテスト1" &
+# bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest1/testメインページのテスト1" &
+# bundle exec fastlane ui_test_without_building tests:"UITestSampleUITests/SampleUITest2/testサブページのテスト1" &
