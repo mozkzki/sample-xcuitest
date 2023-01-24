@@ -29,7 +29,7 @@ jobs:
     # リポジトリ設定変更が必要(https://zenn.dev/tatsugon/articles/github-actions-permission-error)
     - uses: kishikawakatsumi/xcresulttool@v1
       with:
-        path: uitest_output/UITestSample.xcresult
+        path: fastlane/uitest_output/UITestSample.xcresult
       if: success() || failure()
     # - name: Archive test results
     #   uses: actions/upload-artifact@v3

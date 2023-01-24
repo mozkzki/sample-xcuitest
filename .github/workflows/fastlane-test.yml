@@ -2,6 +2,9 @@ name: Fastlane-Test
 
 on:
   workflow_dispatch:
+  schedule:
+    # 01:00 (JST) に実行
+    - cron: '0 16 * * *'
 
 env:
   DEVELOPER_DIR: /Applications/Xcode_14.2.app
