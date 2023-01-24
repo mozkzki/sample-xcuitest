@@ -1,7 +1,10 @@
 name: Parallel-Test-By-Fastlane
 
+# on:
+#   workflow_dispatch:
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
   DEVELOPER_DIR: /Applications/Xcode_14.2.app
@@ -34,7 +37,12 @@ jobs:
     runs-on: macOS-latest
     strategy:
       matrix:
-        tests: ["UITestSampleUITests/SampleUITest1/testメインページのテスト1"]
+        tests: [
+          "UITestSampleUITests/SampleUITest1/testメインページのテスト1",
+          "UITestSampleUITests/SampleUITest2/testサブページのテスト1",
+          "UITestSampleUITests/SampleUITest1/testメインページのテスト1",
+          "UITestSampleUITests/SampleUITest2/testサブページのテスト1"
+        ]
     steps:
     - uses: actions/checkout@v3
     - name: Download Artifact
