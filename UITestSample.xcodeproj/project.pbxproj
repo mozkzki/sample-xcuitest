@@ -17,6 +17,7 @@
 		EC8515DB2970FD9C00D0BF5C /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515DA2970FD9C00D0BF5C /* MainPage.swift */; };
 		EC8515DE2971125900D0BF5C /* PageObjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515DD2971125900D0BF5C /* PageObjectable.swift */; };
 		EC8515E22979141100D0BF5C /* SampleUITestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E12979141100D0BF5C /* SampleUITestBase.swift */; };
+		EC8515E42982133F00D0BF5C /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E32982133F00D0BF5C /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		EC8515DA2970FD9C00D0BF5C /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		EC8515DD2971125900D0BF5C /* PageObjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageObjectable.swift; sourceTree = "<group>"; };
 		EC8515E12979141100D0BF5C /* SampleUITestBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUITestBase.swift; sourceTree = "<group>"; };
+		EC8515E32982133F00D0BF5C /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		311D902F21C4BD570049F4F9 = {
 			isa = PBXGroup;
 			children = (
+				EC8515E32982133F00D0BF5C /* SnapshotHelper.swift */,
 				311D903A21C4BD570049F4F9 /* UITestSample */,
 				311D904F21C4BD590049F4F9 /* UITestSampleUITests */,
 				311D903921C4BD570049F4F9 /* Products */,
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC8515E42982133F00D0BF5C /* SnapshotHelper.swift in Sources */,
 				EC8515E22979141100D0BF5C /* SampleUITestBase.swift in Sources */,
 				311D905121C4BD590049F4F9 /* SampleUITests.swift in Sources */,
 				EC8515D92970FD2B00D0BF5C /* SubPage.swift in Sources */,

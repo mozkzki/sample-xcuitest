@@ -14,6 +14,7 @@ class SampleUITestBase: XCTestCase {
     override func setUp() {
         print("setup")
         continueAfterFailure = false
+        setupSnapshot(app)
         app.launch()
     }
 
@@ -25,6 +26,7 @@ class SampleUITestBase: XCTestCase {
         XCTContext.runActivity(named: "サブページに遷移できること") { _ in
             let subPage = MainPage().goToSubPage()
             XCTAssert(subPage.exists, "SubPage is not displayed")
+
         }
     }
 
@@ -40,9 +42,11 @@ class SampleUITestBase: XCTestCase {
         XCTContext.runActivity(named: "ActionSheetの動作") { _ in
             XCTContext.runActivity(named: "ボタンを押すとActionSheetが開き、正しいタイトルが表示されること") { _ in
                 XCTAssertEqual(subPage.openActionSheet().sheetTitle.label, "タイトルです")
+                snapshot("opened-actionsheet")
             }
             XCTContext.runActivity(named: "アクション 1 ボタンを押すとラベルに正しい文字列が表示されること") { _ in
                 XCTAssertEqual(subPage.action1().displayLabel.label, "アクション 1 が押されました")
+                snapshot("tapped-action1")
             }
             XCTContext.runActivity(named: "アクション 2 ボタンを押すとラベルに正しい文字列が表示されること") { _ in
                 // ActionSheetが閉じるので再度開く

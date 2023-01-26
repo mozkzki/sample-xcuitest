@@ -10,15 +10,25 @@ swiftでのUI自動テスト(XCUITest)のサンプルです。
   - [XCUITestのつらさを乗り越えて、iOSアプリにUITestを導入する - Speaker Deck](https://speakerdeck.com/satotakeshi/xcuitestfalseturasawocheng-riyue-ete-iosahuriniuitestwodao-ru-suru?slide=33)
 - Push時にGitHub Actionsでビルド&テスト実行
 
-## 実行方法
+## 実行
 
 `ruby`, `bundler`は導入前提。
+
+### テスト
 
 ```bash
 bundle install --path=.bundle
 bundle exec fastlane
 # or
 bundle exec fastlane ui_test
+```
+
+### スナップショット撮影
+
+提出用画面の説明等にも使える。
+
+```bash
+bundle exec fastlane snapshot run
 ```
 
 ## 並列実行

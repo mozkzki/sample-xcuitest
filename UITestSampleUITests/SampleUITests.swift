@@ -11,6 +11,7 @@ import XCTest
 class SampleUITest1: SampleUITestBase {
     func testメインページのテスト1() {
         checkMainPage()
+        snapshot("launch")
     }
 }
 
