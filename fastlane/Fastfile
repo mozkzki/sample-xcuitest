@@ -90,6 +90,47 @@ platform :ios do
     )
   end
 
+  private_lane :snapshot_devices do
+    [
+    # "iPhone 8",
+    # "iPhone X",
+    "iPhone 14",
+    # "iPhone 14 Pro Max"
+    ]
+  end
+
+  lane :capture_snapshot do |options|
+    sh("rm", "-fr", "../snapshot_tests/ReferenceImages_64/")
+    ENV['FB_REFERENCE_IMAGE_DIR'] = File.join("#{Dir.pwd}", "/snapshot_tests/ReferenceImages")
+    ENV['IMAGE_DIFF_DIR'] = File.join("#{Dir.pwd}", "/snapshot_tests/FailureDiffs")
+    ENV['SNAPSHOT_TEST_RECORD_MODE'] = 'true'
+    scheme = "UITestSample"
+    snapshot_devices.each do |device|
+      run_tests(
+        scheme: scheme,
+        device: device,
+        only_testing: options[:tests],
+        include_simulator_logs: false,
+        fail_build: false
+      )
+    end
+  end
+
+  lane :snapshot_test do |options|
+    ENV['FB_REFERENCE_IMAGE_DIR'] = File.join("#{Dir.pwd}", "/snapshot_tests/ReferenceImages")
+    ENV['IMAGE_DIFF_DIR'] = File.join("#{Dir.pwd}", "/snapshot_tests/FailureDiffs")
+    ENV['SNAPSHOT_TEST_RECORD_MODE'] = 'false'
+    scheme = "UITestSample"
+    snapshot_devices.each do |device|
+      run_tests(
+        scheme: scheme,
+        device: device,
+        only_testing: options[:tests],
+        include_simulator_logs: false,
+      )
+    end
+  end
+
   before_all do |lane|
     ensure_xcode_version
   end

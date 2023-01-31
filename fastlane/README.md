@@ -39,6 +39,14 @@ Description of what the lane does
 
 UIテスト
 
+### ios make_report
+
+```sh
+[bundle exec] fastlane ios make_report
+```
+
+UIテストのレポート生成
+
 ### ios build_for_ui_test
 
 ```sh
@@ -54,6 +62,22 @@ UIテスト用のビルド
 ```
 
 UIテスト(テストクラス指定, 分散実行用)
+
+### ios capture_snapshot
+
+```sh
+[bundle exec] fastlane ios capture_snapshot
+```
+
+
+
+### ios snapshot_test
+
+```sh
+[bundle exec] fastlane ios snapshot_test
+```
+
+
 
 ----
 

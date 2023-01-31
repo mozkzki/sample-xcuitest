@@ -25,11 +25,41 @@ bundle exec fastlane ui_test
 
 ### スナップショット撮影
 
-提出用画面の説明等にも使える。
+提出用画面の説明等にも使える。`./snapshots`以下に保存される。
+これは、fastlaneのsnapshotプラグイン(?)の機能で実現している。
 
 ```bash
 bundle exec fastlane snapshot run
 ```
+
+### スナップショットテスト (その1)
+
+[ios-snapshot-test-case](https://github.com/uber/ios-snapshot-test-case)を使った方法。
+
+#### 正解画像取得
+
+下記で`./snapshot_tests/ReferenceImages_64`に正解画像が保存される。
+
+```bash
+bundle exec fastlane capture_snapshot tests:UITestSampleTests/MainViewControllerTests/testMainViewSnapshot
+```
+
+#### テスト
+
+下記で正解画像との比較が実施される。
+
+```bash
+bundle exec fastlane snapshot_test tests:UITestSampleTests/MainViewControllerTests/testMainViewSnapshot 
+```
+
+SwiftUIのPreview実装もそのままテストできるはず・・
+- [SwiftUIのPreview実装をそのまま使って、Screenshot撮影を自動化する - Qiita](https://qiita.com/chocoyama/items/9ec8bda869521fbf27b7)
+
+### スナップショットテスト (その2)
+
+次は↓を試す。
+
+- [/swift-snapshot-testing: 📸 Delightful Swift snapshot testing.](https://github.com/pointfreeco/swift-snapshot-testing)
 
 ## 並列実行
 

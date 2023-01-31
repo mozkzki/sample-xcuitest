@@ -2,7 +2,7 @@
 //  SampleUITestBase.swift
 //  UITestSampleUITests
 //
-//  Created by katoyutaka on 2023/01/19.
+//  Created by mozkzki on 2023/01/19.
 //  Copyright © 2023 mozksoft. All rights reserved.
 //
 
