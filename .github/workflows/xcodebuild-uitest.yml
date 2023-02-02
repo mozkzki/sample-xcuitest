@@ -1,0 +1,44 @@
+name: Xcodebuild-UITest
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 03:00 (JST) に実行
+    - cron: '0 18 * * *'
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+
+jobs:
+  # build:
+  #   runs-on: macOS-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Show Xcode version
+  #     run: xcodebuild -version
+  #   - name: Build
+  #     run: xcodebuild -sdk iphonesimulator -configuration Debug build
+
+  # ===============================================================
+  # UITest
+  # xcodebuildで実行
+  # xctesthtmlreportによるreporting, artifactのuploadまで行う
+  # ===============================================================
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: Install xctesthtmlreport
+      run: brew install xctesthtmlreport
+    - name: UITest
+      run: xcodebuild -workspace UITestSample.xcworkspace -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+    - name: Make Report
+      run: xchtmlreport -r uitest_output/UITestSample.xcresult
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: uitest-report
+        path: uitest_output
+        when: always

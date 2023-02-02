@@ -71,7 +71,7 @@ fastlane/test_output
 .bundle
 
 uitest_output
-build-new.xctestproducts
+build.xctestproducts
 build-fastlane
 snapshots
 snapshot_tests/FailureDiffs

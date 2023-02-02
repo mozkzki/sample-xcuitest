@@ -29,7 +29,7 @@ Description of what the lane does
 [bundle exec] fastlane ios temp
 ```
 
-
+fastlane自体のテスト用lane
 
 ### ios ui_test
 

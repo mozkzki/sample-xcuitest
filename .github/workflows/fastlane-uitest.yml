@@ -1,4 +1,4 @@
-name: Fastlane-Test
+name: Fastlane-UITest
 
 on:
   workflow_dispatch:
@@ -10,6 +10,11 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_14.2.app
 
 jobs:
+  # ===============================================================
+  # UITest
+  # fastlane経由で実行
+  # xctesthtmlreportによるreporting, artifactのuploadまで行う
+  # ===============================================================
   test-with-fastlane:
     runs-on: macOS-latest
     steps:
@@ -23,7 +28,7 @@ jobs:
         ruby-version: 2.7
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
-    - name: TestWithFastlane
+    - name: UITestWithFastlane
       run: bundle exec fastlane ui_test
       timeout-minutes: 30
 

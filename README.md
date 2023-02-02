@@ -12,7 +12,7 @@ swiftでのUI自動テスト(XCUITest)のサンプルです。
 
 ## 実行
 
-`ruby`, `bundler`は導入前提。
+`ruby`, `bundler`は導入済みの前提。
 
 ### テスト
 
@@ -27,9 +27,10 @@ bundle exec fastlane ui_test
 
 提出用画面の説明等にも使える。`./snapshots`以下に保存される。
 これは、fastlaneのsnapshotプラグイン(?)の機能で実現している。
+`fastlane/Fastfile`に定義を書いている。
 
 ```bash
-bundle exec fastlane snapshot run
+bundle exec fastlane snapshot run --scheme "SnapShot" --configuration "Release"  --sdk "iphonesimulator"
 ```
 
 ### スナップショットテスト (その1)

@@ -17,7 +17,12 @@ class MainViewControllerTests: SnapshotTestCase {
     }
     
     func testMainViewSnapshot() throws {
-        print("test")
+        print("◆◆◆◆◆◆◆◆◆◆ test")
+        let dic = ProcessInfo.processInfo.environment
+        if let value: String = dic["SNAPSHOT_TEST_RECORD_MODE"] {
+            print(value)
+        }
+        print("◆◆◆◆◆◆◆◆◆◆ test")
 
         let vc = MainViewController()
         FBSnapshotVerifyView(vc.view)

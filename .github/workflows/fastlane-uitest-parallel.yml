@@ -1,4 +1,4 @@
-name: Fastlane-Test-Parallel
+name: Fastlane-UITest-Parallel
 
 on:
   workflow_dispatch:
@@ -13,6 +13,9 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_14.2.app
 
 jobs:
+  # ===============================================================
+  # Test用のビルドを実行、artifactにup
+  # ===============================================================
   build:
     runs-on: macOS-latest
     steps:
@@ -35,6 +38,11 @@ jobs:
         name: build-artifact
         path: build-fastlane
 
+  # ===============================================================
+  # UITest
+  # fastlane経由で実行
+  # artifactからbuild物を得て各テストを複数のインスタンスで並列実行
+  # ===============================================================
   test:
     needs: build
     runs-on: macOS-latest
@@ -62,6 +70,6 @@ jobs:
         ruby-version: 2.7
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
-    - name: Test
+    - name: UITest
       run: bundle exec fastlane ui_test_without_building tests:${{ matrix.tests }}
       timeout-minutes: 30

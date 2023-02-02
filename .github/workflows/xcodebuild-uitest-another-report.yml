@@ -1,0 +1,34 @@
+name: Xcodebuild-UITest-Another-Report
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 05:00 (JST) に実行
+    - cron: '0 20 * * *'
+# on:
+#   push:
+#     branches: [ main ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app
+
+jobs:
+  # ===============================================================
+  # UITest
+  # xcodebuildで実行
+  # kishikawakatsumi/xcresulttoolによるreporting
+  # ===============================================================
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: UITest
+      run: xcodebuild -workspace UITestSample.xcworkspace -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+    # https://blog.kishikawakatsumi.com/entry/2021/11/18/121326
+    # リポジトリ側の設定変更が必要(https://zenn.dev/tatsugon/articles/github-actions-permission-error)
+    - uses: kishikawakatsumi/xcresulttool@v1
+      with:
+        path: uitest_output/UITestSample.xcresult
+      if: success() || failure()

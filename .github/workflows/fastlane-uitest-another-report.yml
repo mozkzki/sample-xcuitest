@@ -1,4 +1,4 @@
-name: Fastlane-Test-Another-Report
+name: Fastlane-UITest-Another-Report
 
 on:
   workflow_dispatch:
@@ -10,6 +10,11 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_14.2.app
 
 jobs:
+  # ===============================================================
+  # UITest
+  # fastlane経由で実行
+  # kishikawakatsumi/xcresulttoolによるreporting
+  # ===============================================================
   test-with-fastlane:
     runs-on: macOS-latest
     steps:
@@ -23,9 +28,7 @@ jobs:
         ruby-version: 2.7
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
-    # - name: Install xctesthtmlreport
-    #   run: brew install xctesthtmlreport
-    - name: TestWithFastlane
+    - name: UITestWithFastlane
       run: bundle exec fastlane ui_test
       timeout-minutes: 30
     # https://blog.kishikawakatsumi.com/entry/2021/11/18/121326
@@ -34,9 +37,3 @@ jobs:
       with:
         path: fastlane/uitest_output/UITestSample.xcresult
       if: success() || failure()
-    # - name: Archive test results
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: uitest-report
-    #     path: fastlane/uitest_output
-    #     when: always

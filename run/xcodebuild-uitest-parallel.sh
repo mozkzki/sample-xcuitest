@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# clean
+rm -rf ./build
+
 # build
 xcodebuild clean build-for-testing \
-        -project UITestSample.xcodeproj \
-        -scheme UITestSample \
+        -workspace UITestSample.xcworkspace \
+        -scheme UITest \
         -sdk iphonesimulator \
-        -testProductsPath ./build-new
+        -derivedDataPath ./build
+
 
 # ui test
 xcodebuild test-without-building \
@@ -14,4 +18,4 @@ xcodebuild test-without-building \
         -parallel-testing-worker-count 4 \
         -maximum-concurrent-test-simulator-destinations 4 \
         -maximum-parallel-testing-workers 4 \
-        -testProductsPath ./build-new.xctestproducts
+        -xctestrun ./build/Build/Products/UITest_iphonesimulator16.2-arm64-x86_64.xctestrun
