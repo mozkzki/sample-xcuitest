@@ -58,9 +58,18 @@ SwiftUIのPreview実装もそのままテストできるはず・・
 
 ### スナップショットテスト (その2)
 
-次は↓を試す。
+[swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing)を使った方法。
 
-- [/swift-snapshot-testing: 📸 Delightful Swift snapshot testing.](https://github.com/pointfreeco/swift-snapshot-testing)
+参考：- [メルペイiOSチームのスナップショットテストを効率化した話 | メルカリエンジニアリング](https://engineering.mercari.com/blog/entry/20201220-ios-snapshot-testing/)
+
+#### 正解画像取得、テスト
+
+下記で`./__Snapshots__/*`に正解画像が保存される（初回実行時）。
+その後同じコマンドで正解画像との比較が実施される。
+
+```bash
+bundle exec fastlane snapshot_test2 tests:UITestSampleTests2/MainViewControllerTests/testMainViewSnapshot 
+```
 
 ## 並列実行
 

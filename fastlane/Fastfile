@@ -137,6 +137,18 @@ platform :ios do
     end
   end
 
+  lane :snapshot_test2 do |options|
+    scheme = "SnapShotTest2"
+    snapshot_devices.each do |device|
+      run_tests(
+        scheme: scheme,
+        device: device,
+        only_testing: options[:tests],
+        include_simulator_logs: false,
+      )
+    end
+  end
+
   before_all do |lane|
     ensure_xcode_version
   end

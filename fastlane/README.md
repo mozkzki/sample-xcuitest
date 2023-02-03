@@ -79,6 +79,14 @@ UIテスト(テストクラス指定, 分散実行用)
 
 
 
+### ios snapshot_test2
+
+```sh
+[bundle exec] fastlane ios snapshot_test2
+```
+
+
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
