@@ -73,11 +73,18 @@ bundle exec fastlane snapshot_test2 tests:UITestSampleTests2/MainViewControllerT
 
 ## 並列実行
 
-- 参考
-  - [Parallel testing: get feedback earlier, release faster | by Paweł Zemsta | AzimoLabs | Medium](https://medium.com/azimolabs/parallel-testing-get-feedback-earlier-release-faster-b66d4dd08930)
-- シミュレーター(mac,local,`xcodebuild`)での並列実行を試した
-  - `build-for-testing`と`test-without-building`で分けるのがお作法っぽい
-  - 上記サイトの通り、テスト実施クラスを小分けにする必要がある
+### xcodebuildでの並列実行
+
+local Macで、下記3パターンの並列実行を試した。
+
+1. Xcodeから
+1. `xcodebuild`コマンド
+1. `xcodebuild`コマンド (`xctestproducts`指定)
+
+#### 前提
+
+- `build-for-testing`と`test-without-building`で分けるのがお作法っぽい
+- 下記のようにテスト実施クラスを小分けにする必要がある
 
   ```swift
   class AzimoUITestsLogin : XCTestCase {
@@ -91,68 +98,85 @@ bundle exec fastlane snapshot_test2 tests:UITestSampleTests2/MainViewControllerT
   }
   ```
 
-  - XcodeのGUIはOK，コマンドライン(`xcodebuild`)はNG
-    - XcodeのGUIから実行
-      - シミュレーターが複数立ち上がり、各OS上でテストが並列実行される
-    - `xcodebuild`
-      - シミュレーターは徐々に指定数立ち上がる
-      - が、テストが並列実行されない（1シミュレータのみで動作）
-      - 下記と同じ状況？
-        - [xcode - xcodebuild build-for-testing not evenly distributing tests across multiple ios simulators - Stack Overflow](https://stackoverflow.com/questions/72989993/xcodebuild-build-for-testing-not-evenly-distributing-tests-across-multiple-ios-s)
-      - 試したコマンドは下記
-        - `-sdk iphonesimulator`を忘れるとtestで失敗する
-        - buildが初回こけたので`-allowProvisioningUpdates`をつけて1度だけ実行した
+#### 並列実行
 
-      ```bash
-      # build
-      xcodebuild clean build-for-testing \
-        -project UITestSample.xcodeproj \
-        -scheme UITestSample \
-        -sdk iphonesimulator \
-        -derivedDataPath ./build
+- XcodeのGUIから実行
+  - シミュレーターが複数立ち上がり、各OS上でテストが並列実行される
+- `xcodebuild`
+  - シミュレーターは徐々に指定数立ち上がる
+  - が、テストが並列実行されない（1シミュレータのみで動作）
+  - 下記と同じ状況？
+    - [xcode - xcodebuild build-for-testing not evenly distributing tests across multiple ios simulators - Stack Overflow](https://stackoverflow.com/questions/72989993/xcodebuild-build-for-testing-not-evenly-distributing-tests-across-multiple-ios-s)
+  - 試したコマンドは下記
+    - 注意
+      - `-sdk iphonesimulator`を忘れるとtestで失敗する
+      - buildが初回こけたので`-allowProvisioningUpdates`をつけて1度だけ実行した
 
-      # ui test
-      xcodebuild test-without-building \
-        -destination 'OS=16.2,name=iPhone 14' \
-        -parallel-testing-enabled YES \
-        -parallel-testing-worker-count 4 \
-        -maximum-concurrent-test-simulator-destinations 4 \
-        -maximum-parallel-testing-workers 4 \
-        -xctestrun ./build/Build/Products/UITestSample_iphonesimulator16.2-arm64-x86_64.xctestrun
-      ```
+  ```bash
+  # build
+  xcodebuild clean build-for-testing \
+    -project UITestSample.xcodeproj \
+    -scheme UITestSample \
+    -sdk iphonesimulator \
+    -derivedDataPath ./build
 
-    - Xcodeの最新だと`xctestrun`ではなく`xctestproducts`を指定してテスト出来る
-      - 最新(Xcode14.2)でも`xctestrun`で動きはする
-      - `xctestproducts`で動かしても並列実行されない
-      - 参考
-        - [Xcode13.3のTesting周りについてまとめてみた｜tarappo｜note](https://note.com/tarappo/n/na3c50cbc2fab)
+  # ui test
+  xcodebuild test-without-building \
+    -destination 'OS=16.2,name=iPhone 14' \
+    -parallel-testing-enabled YES \
+    -parallel-testing-worker-count 4 \
+    -maximum-concurrent-test-simulator-destinations 4 \
+    -maximum-parallel-testing-workers 4 \
+    -xctestrun ./build/Build/Products/UITestSample_iphonesimulator16.2-arm64-x86_64.xctestrun
+  ```
 
-### fastlaneでの並列実行
+- Xcodeの最新だと`xctestrun`ではなく`xctestproducts`を指定してテスト出来る
+  - `xctestproducts`で動かしても並列実行はされない
+  - なお、最新(Xcode14.2)でも`xctestrun`で動きはする
+  - 参考
+    - [Xcode13.3のTesting周りについてまとめてみた｜tarappo｜note](https://note.com/tarappo/n/na3c50cbc2fab)
+
+#### 参考サイト
+
+- [Parallel testing: get feedback earlier, release faster | by Paweł Zemsta | AzimoLabs | Medium](https://medium.com/azimolabs/parallel-testing-get-feedback-earlier-release-faster-b66d4dd08930)
+
+### Fastlaneでの並列実行
+
+Fastlaneコマンド単体レベルでは、テストケースの分散・並列実行は出来ていない。
+複数機種で同じテストケースを並列に実行することは可能。
 
 ```bash
 bandle exec fastlane ui_test
 ```
 
-- そもそもの動作
-  - シミュレーターを起動しているとGUIで動きが見れる(並列の場合、勝手にcloneが立ち上がる)
-  - シミュレーターが1台も起動していない(アプリのプロセスが無い)と、裏で動く
+Fastlane `run_tests` (`scan`) の並列実行関係のパラメータ
 
-- 並列動作
-  - `devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"]`のように複数機種を指定
-    - →想定通り各シミュレーターで並列に動く(テストは1〜4までシリアルに)
-  - `devices: ["iPhone 14"]`のように1機種を指定
-    - →テスト1〜4が分散される動きにはならない
-      - シミュレーターが4台起動するが動作しているのは1台でシリアルにテスト実行される
+```txt
+    parallel_testing: true,
+    concurrent_workers: 4,
+    max_concurrent_simulators: 4,
+    disable_concurrent_testing: false,
+```
+
+#### シミュレーター関連の動作 (前提)
+
+- シミュレーターを起動しているとGUIで動作確認可能(並列指定の場合、勝手にcloneが立ち上がる)
+- シミュレーターが1台も起動していない(アプリプロセス自体が無い)と、裏で動く
+
+#### 並列動作
+
+- 複数機種指定
+  - 例: `devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"]`
+    - この場合、シミュレーター4台でテスト実行される (並列でテスト実行)
+    - 各シミュレーターで同じテスト(テスト1〜4)が実行される
+- 1機種指定
+  - 例: `devices: ["iPhone 14"]`
+    - 1台のシミュレーターでテスト1〜4が実行される
+    - `concurrent_workers: 4`にしても**勝手にテストケースを分散実行してくれるわけではない** (下記動作になる)
+      - シミュレーターは4台起動する
+      - が、**動作しているのは1台でその1台でテストがシリアルに実行される**
       - 実行時間的に見て、裏で動く場合(シミュレータ起動無し)もシリアル動作と思われる
-      - 事前に機種を合わせたシミュレータを起動させておいても別のが立ち上がって↑と同じ動作になる（シリアル）
-
-- `run_tests`(`scan`)のパラメータ詳細等は下記公式ページ参照
-  - [run_tests - fastlane docs](https://docs.fastlane.tools/actions/run_tests/)
-  - [scan - fastlane docs](http://docs.fastlane.tools/actions/scan/#scan)
-
-- まとめ
-  - テストの分散実行は出来てない
-  - `xcodebuild`と同じ状況（根本はXcode側の動作か）
+      - 事前に機種を一致させたシミュレータを起動させても別のcloneが立ち上がり同様のシリアル動作となる
 
 ## 部分実行
 
@@ -172,3 +196,6 @@ xcodebuild test-without-building \
 - [XCTestCaseで作ったテストをxcodebuildで実行する方法 - Qiita](https://qiita.com/gremito/items/835f06511b80e4efafff)
 - [Xcodeでのビルドを自動化するxcodebuildコマンドとIPAファイルを作成してiTunes Connect(Testflight)に投げる方法 - 酢ろぐ！](https://blog.ch3cooh.jp/entry/20150210/1423573065)
 - [【iOS】複数端末のUIテストを自動化しよう – XCUITestとfastlaneとBeyond Compareで実装 | thilog](https://thilog.com/xcode-xcuitest-fastlane/)
+- fastlane `run_tests`(`scan`) actionのパラメータ詳細
+  - [run_tests - fastlane docs](https://docs.fastlane.tools/actions/run_tests/)
+  - [scan - fastlane docs](http://docs.fastlane.tools/actions/scan/#scan)
