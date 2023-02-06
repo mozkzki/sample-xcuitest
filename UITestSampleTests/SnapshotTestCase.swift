@@ -6,7 +6,8 @@
 //  Copyright © 2023 mozksoft. All rights reserved.
 //
 
-import FBSnapshotTestCase
+//import FBSnapshotTestCase
+import iOSSnapshotTestCase
 
 class SnapshotTestCase: FBSnapshotTestCase {
     var window: UIWindow!

@@ -33,7 +33,7 @@ platform :ios do
   lane :ui_test do |options|
     result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
     scan(
-      workspace: "UITestSample.xcworkspace",
+      project: "UITestSample.xcodeproj",
       scheme: "UITest",
       devices: ["iPhone 14"],
     #   devices: ["iPhone 14", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14 Pro Max"],

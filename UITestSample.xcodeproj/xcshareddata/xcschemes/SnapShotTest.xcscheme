@@ -72,17 +72,6 @@
                </Test>
             </SkippedTests>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ECC2C05C298CAE5900C783D0"
-               BuildableName = "UITestSampleTests2.xctest"
-               BlueprintName = "UITestSampleTests2"
-               ReferencedContainer = "container:UITestSample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

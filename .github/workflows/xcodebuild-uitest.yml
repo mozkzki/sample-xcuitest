@@ -30,12 +30,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: Show Xcode version
       run: xcodebuild -version
-    - name: CocoaPods
-      run: pod install
     - name: Install xctesthtmlreport
       run: brew install xctesthtmlreport
     - name: UITest
-      run: xcodebuild -workspace UITestSample.xcworkspace -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+      run: xcodebuild -project UITestSample.xcodeproj -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
     - name: Make Report
       run: xchtmlreport -r uitest_output/UITestSample.xcresult
     - name: Archive test results

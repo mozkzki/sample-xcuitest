@@ -25,7 +25,7 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
     - name: UITest
-      run: xcodebuild -workspace UITestSample.xcworkspace -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
+      run: xcodebuild -project UITestSample.xcodeproj -sdk iphonesimulator -scheme UITest -destination OS=16.2,name="iPhone 14" -configuration Debug test -resultBundlePath uitest_output/UITestSample.xcresult
     # https://blog.kishikawakatsumi.com/entry/2021/11/18/121326
     # リポジトリ側の設定変更が必要(https://zenn.dev/tatsugon/articles/github-actions-permission-error)
     - uses: kishikawakatsumi/xcresulttool@v1

@@ -5,7 +5,7 @@ rm -rf ./build
 
 # build
 xcodebuild clean build-for-testing \
-        -workspace UITestSample.xcworkspace \
+        -project UITestSample.xcodeproj \
         -scheme UITest \
         -sdk iphonesimulator \
         -derivedDataPath ./build
