@@ -30,6 +30,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Show Xcode version
       run: xcodebuild -version
+    - name: CocoaPods
+      run: pod install
     - name: Install xctesthtmlreport
       run: brew install xctesthtmlreport
     - name: UITest
