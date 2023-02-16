@@ -57,7 +57,7 @@ platform :ios do
   desc "UIテストのレポート生成"
   lane :make_report do |options|
     result_bundle_path = File.join("#{Dir.pwd}", "uitest_output")
-    sh("xchtmlreport -r #{result_bundle_path}/UITestSample.xcresult")
+    sh("xchtmlreport -r #{result_bundle_path}/UITest.xcresult")
   end
 
   desc "UIテスト用のビルド"
