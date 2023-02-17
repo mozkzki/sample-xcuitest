@@ -19,7 +19,6 @@
 		EC8515DE2971125900D0BF5C /* PageObjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515DD2971125900D0BF5C /* PageObjectable.swift */; };
 		EC8515E22979141100D0BF5C /* SampleUITestBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E12979141100D0BF5C /* SampleUITestBase.swift */; };
 		EC8515E42982133F00D0BF5C /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E32982133F00D0BF5C /* SnapshotHelper.swift */; };
-		ECB9A917298757AD00B2E4FE /* UITestSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB9A916298757AD00B2E4FE /* UITestSampleTests.swift */; };
 		ECC2C067298CAF4500C783D0 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2C066298CAF4500C783D0 /* MainViewControllerTests.swift */; };
 		ECC2C06A298CAFB100C783D0 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = ECC2C069298CAFB100C783D0 /* SnapshotTesting */; };
 		ECF611562987598F0099249C /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8515E52982373700D0BF5C /* MainViewControllerTests.swift */; };
@@ -69,7 +68,6 @@
 		EC8515E52982373700D0BF5C /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		EC8515E8298238BF00D0BF5C /* SnapshotTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTestCase.swift; sourceTree = "<group>"; };
 		ECB9A914298757AD00B2E4FE /* UITestSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITestSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECB9A916298757AD00B2E4FE /* UITestSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSampleTests.swift; sourceTree = "<group>"; };
 		ECC2C05D298CAE5900C783D0 /* UITestSampleTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITestSampleTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC2C066298CAF4500C783D0 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,7 +174,6 @@
 		ECB9A915298757AD00B2E4FE /* UITestSampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				ECB9A916298757AD00B2E4FE /* UITestSampleTests.swift */,
 				EC8515E52982373700D0BF5C /* MainViewControllerTests.swift */,
 				EC8515E8298238BF00D0BF5C /* SnapshotTestCase.swift */,
 			);
@@ -386,7 +383,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB9A917298757AD00B2E4FE /* UITestSampleTests.swift in Sources */,
 				ECF611562987598F0099249C /* MainViewControllerTests.swift in Sources */,
 				ECF611572987599D0099249C /* SnapshotTestCase.swift in Sources */,
 			);
