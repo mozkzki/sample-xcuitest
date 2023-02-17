@@ -16,8 +16,8 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
+  desc "Sample"
+  lane :sample_lane do
     # add actions here: https://docs.fastlane.tools/actions
   end
 
@@ -60,7 +60,7 @@ platform :ios do
     sh("xchtmlreport -r #{result_bundle_path}/UITest.xcresult")
   end
 
-  desc "UIテスト用のビルド"
+  desc "UIテスト用のビルド(分散実行用)"
   lane :build_for_ui_test do
     sh("rm", "-rf", "../build-fastlane")
     run_tests(
@@ -74,7 +74,7 @@ platform :ios do
     )
   end
 
-  desc "UIテスト(テストクラス指定, 分散実行用)"
+  desc "UIテスト(分散実行用、テストクラス指定あり)"
   lane :ui_test_without_building do |options|
     run_tests(
       scheme: "UITest",
@@ -103,6 +103,7 @@ platform :ios do
     ]
   end
 
+  desc "スナップショットテスト(その1)用の正解画像を取得"
   lane :capture_snapshot do |options|
     sh("rm", "-rf", "../snapshot_tests/ReferenceImages_64/")
     ENV["SNAPSHOT_TEST_RECORD_MODE"] = "true"
@@ -121,6 +122,7 @@ platform :ios do
     end
   end
 
+  desc "スナップショットテスト(その1)を実施"
   lane :snapshot_test do |options|
     ENV["SNAPSHOT_TEST_RECORD_MODE"] = "false"
     scheme = "SnapShotTest"
@@ -137,6 +139,7 @@ platform :ios do
     end
   end
 
+  desc "スナップショットテスト(その2)を実施"
   lane :snapshot_test2 do |options|
     scheme = "SnapShotTest2"
     snapshot_devices.each do |device|
