@@ -15,13 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios custom_lane
+### ios sample_lane
 
 ```sh
-[bundle exec] fastlane ios custom_lane
+[bundle exec] fastlane ios sample_lane
 ```
 
-Description of what the lane does
+Sample
 
 ### ios temp
 
@@ -53,7 +53,7 @@ UIテストのレポート生成
 [bundle exec] fastlane ios build_for_ui_test
 ```
 
-UIテスト用のビルド
+UIテスト用のビルド(分散実行用)
 
 ### ios ui_test_without_building
 
@@ -61,7 +61,7 @@ UIテスト用のビルド
 [bundle exec] fastlane ios ui_test_without_building
 ```
 
-UIテスト(テストクラス指定, 分散実行用)
+UIテスト(分散実行用、テストクラス指定あり)
 
 ### ios capture_snapshot
 
@@ -69,7 +69,7 @@ UIテスト(テストクラス指定, 分散実行用)
 [bundle exec] fastlane ios capture_snapshot
 ```
 
-
+スナップショットテスト(その1)用の正解画像を取得
 
 ### ios snapshot_test
 
@@ -77,7 +77,7 @@ UIテスト(テストクラス指定, 分散実行用)
 [bundle exec] fastlane ios snapshot_test
 ```
 
-
+スナップショットテスト(その1)を実施
 
 ### ios snapshot_test2
 
@@ -85,7 +85,7 @@ UIテスト(テストクラス指定, 分散実行用)
 [bundle exec] fastlane ios snapshot_test2
 ```
 
-
+スナップショットテスト(その2)を実施
 
 ----
 
